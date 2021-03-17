@@ -65,9 +65,8 @@ syn keyword qmlIdentifier        arguments this var let const
 syn keyword qmlLabel             case default
 syn keyword qmlException         try catch finally throw
 syn keyword qmlMessage           alert confirm prompt status
-syn keyword qmlGlobal            self
-syn keyword qmlDeclaration       signal component readonly required
-syn keyword qmlReserved          abstract boolean byte char class debugger enum export extends final float goto implements import interface long native package pragma private protected public short static super synchronized throws transient volatile
+syn keyword qmlDeclaration       signal component readonly required enum
+syn keyword qmlDirective         import pragma
 
 " List extracted in alphabatical order from: https://doc.qt.io/qt-5/qmlbasictypes.html
 " Qt v5.15.1
@@ -204,8 +203,7 @@ if version >= 508 || !exists("did_qml_syn_inits")
   HiLink qmlLabel             Label
   HiLink qmlException         Exception
   HiLink qmlMessage           Keyword
-  HiLink qmlGlobal            Keyword
-  HiLink qmlReserved          Keyword
+  HiLink qmlDirective         Statement
   HiLink qmlDebug             Debug
   HiLink qmlConstant          Label
   HiLink qmlProperty          Function
