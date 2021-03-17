@@ -51,6 +51,7 @@ syn match   qmlPropertyType      "\s\+\(list<\I\(\i\|\.\)*>\|\I\(\i\|\.\)*\)" co
 syn match   qmlPropertyBracket   "[<>]" contained
 syn match   qmlPropertyName      "\s\+[_a-z]\i*:\=" contained
 syn match   qmlBindingProperty   "\<\(\I\i*\.\)*[_a-z]\i*\s*:"
+syn match   qmlSlotDefinition    "\<\(\I\i*\.\)*on\i*\s*:"
 syn match   qmlObjectId          "\<\(id\|name\)\s*:"
 syn match   qmlGroupProperty     "\<\(\u\i*\.\)*[_a-z]\i*\s*\({\)\@="
 
@@ -211,6 +212,7 @@ if version >= 508 || !exists("did_qml_syn_inits")
   HiLink qmlPropertyBracket   Function
   HiLink qmlPropertyName      Label
   HiLink qmlBindingProperty   Label
+  HiLink qmlSlotDefinition    Special
   HiLink qmlObjectId          Identifier
   HiLink qmlGroupProperty     Label
   HiLink qmlDeclaration       Function
