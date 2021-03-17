@@ -42,12 +42,16 @@ syntax region  qmlTemplateExpr contained  matchgroup=qmlBraces start=+${+ end=+}
 syn match   qmlCharacter         "'\\.'"
 syn match   qmlNumber            "-\=\<\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>"
 syn region  qmlRegexpString      start=+/[^/*]+me=e-1 skip=+\\\\\|\\/+ end=+/[gi]\{0,2\}\s*$+ end=+/[gi]\{0,2\}\s*[;.,)\]}]+me=e-1 contains=@htmlPreproc oneline
-syn match   qmlObjectDefinition  "[A-Z][_A-Za-z0-9]*\(\s*{\|\s\+on\s\+\)\@=" nextgroup=qmlPropModifierOn
+syn match   qmlObjectDefinition  "\<\(\u\i*\.\)*\u\i*\(\s*{\|\s\+on\s\+\)\@=" nextgroup=qmlPropModifierOn
 syn match   qmlPropModifierOn    "\s\+on\s\+" contained nextgroup=qmlPropModifierTarget
-syn match   qmlPropModifierTarget "[_a-z][_A-Za-z.0-9]*\s*\({\)\@=" contained
+syn match   qmlPropModifierTarget "\<\(\u\i*\.\)*[_a-z]\i*\s*\({\)\@=" contained
 syn region  qmlTernaryColon   start="?" end=":" contains=@qmlExpr,qmlBraces,qmlParens
-syn match   qmlBindingProperty   "\<[_a-z][_A-Za-z.0-9]*\s*:"
-syn match   qmlGroupProperty     "[_a-z][_A-Za-z0-9]*\s*\({\)\@="
+syn keyword qmlProperty          property nextgroup=qmlPropertyType
+syn match   qmlPropertyType      "\s\+\(list<\I\(\i\|\.\)*>\|\I\(\i\|\.\)*\)" contained contains=qmlBasicType,qmlAliasType,qmlPropertyBracket nextgroup=qmlPropertyName
+syn match   qmlPropertyBracket   "[<>]" contained
+syn match   qmlPropertyName      "\s\+[_a-z]\i*:\=" contained
+syn match   qmlBindingProperty   "\<\(\I\i*\.\)*[_a-z]\i*\s*:"
+syn match   qmlGroupProperty     "\<\(\u\i*\.\)*[_a-z]\i*\s*\({\)\@="
 
 syn keyword qmlConditional       if else switch
 syn keyword qmlRepeat            while for do in
@@ -62,7 +66,7 @@ syn keyword qmlLabel             case default
 syn keyword qmlException         try catch finally throw
 syn keyword qmlMessage           alert confirm prompt status
 syn keyword qmlGlobal            self
-syn keyword qmlDeclaration       property signal component readonly required
+syn keyword qmlDeclaration       signal component readonly required
 syn keyword qmlReserved          abstract boolean byte char class debugger enum export extends final float goto implements import interface long native package pragma private protected public short static super synchronized throws transient volatile
 
 " List extracted in alphabatical order from: https://doc.qt.io/qt-5/qmlbasictypes.html
@@ -1174,6 +1178,9 @@ if version >= 508 || !exists("did_qml_syn_inits")
   HiLink qmlReserved          Keyword
   HiLink qmlDebug             Debug
   HiLink qmlConstant          Label
+  HiLink qmlProperty          Function
+  HiLink qmlPropertyBracket   Function
+  HiLink qmlPropertyName      Label
   HiLink qmlBindingProperty   Label
   HiLink qmlGroupProperty     Label
   HiLink qmlDeclaration       Function
