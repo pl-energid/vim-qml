@@ -197,7 +197,7 @@ if version >= 508 || !exists("did_qml_syn_inits")
   HiLink qmlArrowFunction     Function
   HiLink qmlBraces            Function
   HiLink qmlError             Error
-  HiLink qmlNull              Keyword
+  HiLink qmlNull              Constant
   HiLink qmlBoolean           Boolean
   HiLink qmlRegexpString      String
 
