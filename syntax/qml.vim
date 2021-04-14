@@ -52,7 +52,7 @@ syn match   qmlPropertyBracket   "[<>]" contained
 syn match   qmlPropertyName      "\s\+[_a-z]\i*:\=" contained
 syn match   qmlBindingProperty   "\<\(\I\i*\.\)*[_a-z]\i*\s*:"
 syn match   qmlSlotDefinition    "\<\(\I\i*\.\)*on\i*\s*:"
-syn match   qmlObjectId          "\<\(id\|name\)\s*:"
+syn match   qmlObjectId          "\<id\s*:"
 syn match   qmlGroupProperty     "\<\(\u\i*\.\)*[_a-z]\i*\s*\({\)\@="
 
 syn keyword qmlConditional       if else switch
@@ -104,7 +104,7 @@ let basicTypes = [ "bool",
                  \ "vector3d",
                  \ "vector4d" ]
 
-exec "syntax match qmlBasicType \"\\.\\@<!\\<\\(".join(basicTypes, "\\|")."\\)\\>[:.]\\@!\""
+exec "syntax match qmlBasicType \"\\.\\@<!\\<\\(".join(basicTypes, "\\|")."\\)\\>\\(\\s*[.:=]\\)\\@!\""
 
 " }}}
 
