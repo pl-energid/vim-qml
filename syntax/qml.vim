@@ -68,7 +68,7 @@ syn keyword qmlLabel             case default
 syn keyword qmlException         try catch finally throw
 syn keyword qmlMessage           alert confirm prompt status
 syn keyword qmlDeclaration       signal component readonly required enum
-syn keyword qmlDirective         import pragma
+syn keyword qmlDirective         import pragma as
 
 " List extracted in alphabatical order from: https://doc.qt.io/qt-5/qmlbasictypes.html
 " Qt v5.15.1
