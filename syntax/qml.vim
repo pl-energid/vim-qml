@@ -27,7 +27,7 @@ endif
 
 syn case match
 
-syn cluster qmlExpr              contains=qmlStringD,qmlStringS,qmlStringT,SqmlCharacter,qmlNumber,qmlObjectLiteralType,qmlBoolean,qmlType,qmlJsType,qmlNull,qmlGlobal,qmlFunction,qmlArrowFunction
+syn cluster qmlExpr              contains=qmlStringD,qmlStringS,qmlStringT,SqmlCharacter,qmlNumber,qmlObjectLiteralType,qmlBoolean,qmlBasicType,qmlJsType,qmlAliasType,qmlNull,qmlGlobal,qmlFunction,qmlArrowFunction
 syn keyword qmlCommentTodo       TODO FIXME XXX TBD contained
 syn match   qmlLineComment       "\/\/.*" contains=@Spell,qmlCommentTodo
 syn match   qmlCommentSkip       "^[ \t]*\*\($\|[ \t]\+\)"
@@ -51,7 +51,7 @@ syn keyword qmlRepeat            while for do in
 syn keyword qmlBranch            break continue
 syn keyword qmlOperator          new delete instanceof typeof
 syn keyword qmlJsType            Array Boolean Date Function Number Object String RegExp
-syn keyword qmlType              action alias bool color date double enumeration font int list point real rect size string time url variant vector2d vector3d vector4d coordinate geocircle geopath geopolygon georectangle geoshape matrix4x4 palette quaternion
+syn keyword qmlAliasType         alias
 syn keyword qmlStatement         return with
 syn keyword qmlBoolean           true false
 syn keyword qmlNull              null undefined
@@ -63,10 +63,49 @@ syn keyword qmlGlobal            self
 syn keyword qmlDeclaration       property signal component readonly required
 syn keyword qmlReserved          abstract boolean byte char class debugger enum export extends final float goto implements import interface long native package pragma private protected public short static super synchronized throws transient volatile
 
-" List extracted in alphabatical order from: https://doc.qt.io/qt-5/qmltypes.html
+" List extracted in alphabatical order from: https://doc.qt.io/qt-5/qmlbasictypes.html
 " Qt v5.15.1
 
-" Begin Literal Types {{{
+" Basic Types {{{
+
+let basicTypes = [ "bool",
+                 \ "color",
+                 \ "coordinate",
+                 \ "date",
+                 \ "double",
+                 \ "enumeration",
+                 \ "font",
+                 \ "geocircle",
+                 \ "geopath",
+                 \ "geopolygon",
+                 \ "georectangle",
+                 \ "geoshape",
+                 \ "int",
+                 \ "list",
+                 \ "matrix4x4",
+                 \ "palette",
+                 \ "point",
+                 \ "quaternion",
+                 \ "real",
+                 \ "rect",
+                 \ "size",
+                 \ "string",
+                 \ "url",
+                 \ "var",
+                 \ "variant",
+                 \ "vector2d",
+                 \ "vector3d",
+                 \ "vector4d" ]
+
+exec "syntax match qmlBasicType \"\\.\\@<!\\<\\(".join(basicTypes, "\\|")."\\)\\>[:.]\\@!\""
+
+" }}}
+
+" List extracted in alphabatical order from: https://doc.qt.io/qt-5/qmltypes.html
+" Qt v5.15.1
+" NOTE: The basic types previously listed are excluded from this list.
+
+" Built-in Components {{{
 
 syntax keyword qmlObjectLiteralType Abstract3DSeries
 syntax keyword qmlObjectLiteralType AbstractActionInput
@@ -162,7 +201,6 @@ syntax keyword qmlObjectLiteralType BluetoothDiscoveryModel
 syntax keyword qmlObjectLiteralType BluetoothService
 syntax keyword qmlObjectLiteralType BluetoothSocket
 syntax keyword qmlObjectLiteralType Blur
-syntax keyword qmlObjectLiteralType bool
 syntax keyword qmlObjectLiteralType BorderImage
 syntax keyword qmlObjectLiteralType BorderImageMesh
 syntax keyword qmlObjectLiteralType BoundaryRule
@@ -220,7 +258,6 @@ syntax keyword qmlObjectLiteralType ClipAnimator
 syntax keyword qmlObjectLiteralType ClipBlendValue
 syntax keyword qmlObjectLiteralType ClipPlane
 syntax keyword qmlObjectLiteralType CloseEvent
-syntax keyword qmlObjectLiteralType color
 syntax keyword qmlObjectLiteralType ColorAnimation
 syntax keyword qmlObjectLiteralType ColorDialog
 syntax keyword qmlObjectLiteralType ColorDialogRequest
@@ -250,7 +287,6 @@ syntax keyword qmlObjectLiteralType Container
 syntax keyword qmlObjectLiteralType Context2D
 syntax keyword qmlObjectLiteralType ContextMenuRequest
 syntax keyword qmlObjectLiteralType Control
-syntax keyword qmlObjectLiteralType coordinate
 syntax keyword qmlObjectLiteralType CoordinateAnimation
 syntax keyword qmlObjectLiteralType CopperMaterial
 syntax keyword qmlObjectLiteralType CuboidGeometry
@@ -268,7 +304,6 @@ syntax keyword qmlObjectLiteralType CylinderGeometry
 syntax keyword qmlObjectLiteralType CylinderMesh
 
 syntax keyword qmlObjectLiteralType Date
-syntax keyword qmlObjectLiteralType date
 syntax keyword qmlObjectLiteralType DateTimeAxis
 syntax keyword qmlObjectLiteralType DayOfWeekRow
 syntax keyword qmlObjectLiteralType DebugView
@@ -302,7 +337,6 @@ syntax keyword qmlObjectLiteralType DistortionRipple
 syntax keyword qmlObjectLiteralType DistortionSphere
 syntax keyword qmlObjectLiteralType DistortionSpiral
 syntax keyword qmlObjectLiteralType Dithering
-syntax keyword qmlObjectLiteralType double
 syntax keyword qmlObjectLiteralType DoubleValidator
 syntax keyword qmlObjectLiteralType Drag
 syntax keyword qmlObjectLiteralType DragEvent
@@ -323,7 +357,6 @@ syntax keyword qmlObjectLiteralType EnterKey
 syntax keyword qmlObjectLiteralType EnterKeyAction
 syntax keyword qmlObjectLiteralType Entity
 syntax keyword qmlObjectLiteralType EntityLoader
-syntax keyword qmlObjectLiteralType enumeration
 syntax keyword qmlObjectLiteralType EnvironmentLight
 syntax keyword qmlObjectLiteralType EventConnection
 syntax keyword qmlObjectLiteralType EventPoint
@@ -348,7 +381,6 @@ syntax keyword qmlObjectLiteralType Flow
 syntax keyword qmlObjectLiteralType FocusScope
 syntax keyword qmlObjectLiteralType FolderDialog
 syntax keyword qmlObjectLiteralType FolderListModel
-syntax keyword qmlObjectLiteralType font
 syntax keyword qmlObjectLiteralType FontDialog
 syntax keyword qmlObjectLiteralType FontLoader
 syntax keyword qmlObjectLiteralType FontMetrics
@@ -372,14 +404,9 @@ syntax keyword qmlObjectLiteralType GammaAdjust
 syntax keyword qmlObjectLiteralType Gauge
 syntax keyword qmlObjectLiteralType GaugeStyle
 syntax keyword qmlObjectLiteralType GaussianBlur
-syntax keyword qmlObjectLiteralType geocircle
 syntax keyword qmlObjectLiteralType GeocodeModel
 syntax keyword qmlObjectLiteralType Geometry
 syntax keyword qmlObjectLiteralType GeometryRenderer
-syntax keyword qmlObjectLiteralType geopath
-syntax keyword qmlObjectLiteralType geopolygon
-syntax keyword qmlObjectLiteralType georectangle
-syntax keyword qmlObjectLiteralType geoshape
 syntax keyword qmlObjectLiteralType GestureEvent
 syntax keyword qmlObjectLiteralType GlassMaterial
 syntax keyword qmlObjectLiteralType GlassRefractiveMaterial
@@ -440,7 +467,6 @@ syntax keyword qmlObjectLiteralType InputPanel
 syntax keyword qmlObjectLiteralType InputSequence
 syntax keyword qmlObjectLiteralType InputSettings
 syntax keyword qmlObjectLiteralType Instantiator
-syntax keyword qmlObjectLiteralType int
 syntax keyword qmlObjectLiteralType IntValidator
 syntax keyword qmlObjectLiteralType InvokedServices
 syntax keyword qmlObjectLiteralType IRProximityReading
@@ -503,7 +529,6 @@ syntax keyword qmlObjectLiteralType LinearGradient
 syntax keyword qmlObjectLiteralType LineSeries
 syntax keyword qmlObjectLiteralType LineShape
 syntax keyword qmlObjectLiteralType LineWidth
-syntax keyword qmlObjectLiteralType list
 syntax keyword qmlObjectLiteralType ListElement
 syntax keyword qmlObjectLiteralType ListModel
 syntax keyword qmlObjectLiteralType ListView
@@ -544,7 +569,6 @@ syntax keyword qmlObjectLiteralType MaskedBlur
 syntax keyword qmlObjectLiteralType MaskShape
 syntax keyword qmlObjectLiteralType Material
 syntax keyword qmlObjectLiteralType Matrix4x4
-syntax keyword qmlObjectLiteralType matrix4x4
 syntax keyword qmlObjectLiteralType MediaPlayer
 syntax keyword qmlObjectLiteralType mediaplayer-qml-dynamic
 syntax keyword qmlObjectLiteralType MemoryBarrier
@@ -607,7 +631,6 @@ syntax keyword qmlObjectLiteralType Overlay
 syntax keyword qmlObjectLiteralType Package
 syntax keyword qmlObjectLiteralType Page
 syntax keyword qmlObjectLiteralType PageIndicator
-syntax keyword qmlObjectLiteralType palette
 syntax keyword qmlObjectLiteralType Pane
 syntax keyword qmlObjectLiteralType PaperArtisticMaterial
 syntax keyword qmlObjectLiteralType PaperOfficeMaterial
@@ -677,7 +700,6 @@ syntax keyword qmlObjectLiteralType PlaylistItem
 syntax keyword qmlObjectLiteralType PlayVariation
 syntax keyword qmlObjectLiteralType Plugin
 syntax keyword qmlObjectLiteralType PluginParameter
-syntax keyword qmlObjectLiteralType point
 syntax keyword qmlObjectLiteralType PointDirection
 syntax keyword qmlObjectLiteralType PointerDevice
 syntax keyword qmlObjectLiteralType PointerDeviceHandler
@@ -715,7 +737,6 @@ syntax keyword qmlObjectLiteralType QtMultimedia
 syntax keyword qmlObjectLiteralType QtObject
 syntax keyword qmlObjectLiteralType QtPositioning
 syntax keyword qmlObjectLiteralType QtRemoteObjects
-syntax keyword qmlObjectLiteralType quaternion
 syntax keyword qmlObjectLiteralType QuaternionAnimation
 syntax keyword qmlObjectLiteralType QuotaRequest
 
@@ -730,8 +751,6 @@ syntax keyword qmlObjectLiteralType RangeSlider
 syntax keyword qmlObjectLiteralType RasterMode
 syntax keyword qmlObjectLiteralType Ratings
 syntax keyword qmlObjectLiteralType RayCaster
-syntax keyword qmlObjectLiteralType real
-syntax keyword qmlObjectLiteralType rect
 syntax keyword qmlObjectLiteralType Rectangle
 syntax keyword qmlObjectLiteralType RectangleShape
 syntax keyword qmlObjectLiteralType RectangularGlow
@@ -821,7 +840,6 @@ syntax keyword qmlObjectLiteralType Shortcut
 syntax keyword qmlObjectLiteralType SignalSpy
 syntax keyword qmlObjectLiteralType SignalTransition
 syntax keyword qmlObjectLiteralType SinglePointHandler
-syntax keyword qmlObjectLiteralType size
 syntax keyword qmlObjectLiteralType Skeleton
 syntax keyword qmlObjectLiteralType SkeletonLoader
 syntax keyword qmlObjectLiteralType SkyboxEntity
@@ -868,7 +886,6 @@ syntax keyword qmlObjectLiteralType StencilTest
 syntax keyword qmlObjectLiteralType StencilTestArguments
 syntax keyword qmlObjectLiteralType Store
 syntax keyword qmlObjectLiteralType String
-syntax keyword qmlObjectLiteralType string
 syntax keyword qmlObjectLiteralType SubtreeEnabler
 syntax keyword qmlObjectLiteralType Supplier
 syntax keyword qmlObjectLiteralType Surface3D
@@ -969,21 +986,15 @@ syntax keyword qmlObjectLiteralType TumblerStyle
 syntax keyword qmlObjectLiteralType Turbulence
 
 syntax keyword qmlObjectLiteralType UniformAnimator
-syntax keyword qmlObjectLiteralType url
 syntax keyword qmlObjectLiteralType User
 
 syntax keyword qmlObjectLiteralType ValueAxis
 syntax keyword qmlObjectLiteralType ValueAxis3D
 syntax keyword qmlObjectLiteralType ValueAxis3DFormatter
-syntax keyword qmlObjectLiteralType var
-syntax keyword qmlObjectLiteralType variant
 syntax keyword qmlObjectLiteralType VBarModelMapper
 syntax keyword qmlObjectLiteralType VBoxPlotModelMapper
 syntax keyword qmlObjectLiteralType VCandlestickModelMapper
-syntax keyword qmlObjectLiteralType vector2d
-syntax keyword qmlObjectLiteralType vector3d
 syntax keyword qmlObjectLiteralType Vector3dAnimation
-syntax keyword qmlObjectLiteralType vector4d
 syntax keyword qmlObjectLiteralType VertexBlendAnimation
 syntax keyword qmlObjectLiteralType VerticalHeaderView
 syntax keyword qmlObjectLiteralType Video
@@ -1109,8 +1120,9 @@ if version >= 508 || !exists("did_qml_syn_inits")
   HiLink qmlRepeat            Repeat
   HiLink qmlBranch            Conditional
   HiLink qmlOperator          Operator
+  HiLink qmlBasicType         Type
   HiLink qmlJsType            Type
-  HiLink qmlType              Type
+  HiLink qmlAliasType         Type
   HiLink qmlObjectLiteralType Type
   HiLink qmlStatement         Statement
   HiLink qmlFunction          Function
