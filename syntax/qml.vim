@@ -50,7 +50,6 @@ syn keyword qmlConditional       if else switch
 syn keyword qmlRepeat            while for do in
 syn keyword qmlBranch            break continue
 syn keyword qmlOperator          new delete instanceof typeof
-syn keyword qmlJsType            Array Boolean Date Function Number Object String RegExp
 syn keyword qmlAliasType         alias
 syn keyword qmlStatement         return with
 syn keyword qmlBoolean           true false
@@ -101,9 +100,41 @@ exec "syntax match qmlBasicType \"\\.\\@<!\\<\\(".join(basicTypes, "\\|")."\\)\\
 
 " }}}
 
+" List extracted in alphabatical order from: https://doc.qt.io/qt-5/qtqml-javascript-functionlist.html
+" Qt v5.15.1
+
+" JavaScript Types {{{
+
+syn keyword qmlJsType Array
+syn keyword qmlJsType ArrayBuffer
+syn keyword qmlJsType Boolean
+syn keyword qmlJsType DataView
+syn keyword qmlJsType Date
+syn keyword qmlJsType Error
+syn keyword qmlJsType EvalError
+syn keyword qmlJsType Function
+syn keyword qmlJsType Map
+syn keyword qmlJsType Number
+syn keyword qmlJsType Object
+syn keyword qmlJsType Promise
+syn keyword qmlJsType RangeError
+syn keyword qmlJsType ReferenceError
+syn keyword qmlJsType RegExp
+syn keyword qmlJsType Set
+syn keyword qmlJsType SharedArrayBuffer
+syn keyword qmlJsType String
+syn keyword qmlJsType Symbol
+syn keyword qmlJsType SyntaxError
+syn keyword qmlJsType TypeError
+syn keyword qmlJsType URIError
+syn keyword qmlJsType WeakMap
+syn keyword qmlJsType WeakSet
+
+" }}}
+
 " List extracted in alphabatical order from: https://doc.qt.io/qt-5/qmltypes.html
 " Qt v5.15.1
-" NOTE: The basic types previously listed are excluded from this list.
+" NOTE: The basic and JS types previously listed are excluded from this list.
 
 " Built-in Components {{{
 
@@ -303,7 +334,6 @@ syntax keyword qmlObjectLiteralType CustomParticle
 syntax keyword qmlObjectLiteralType CylinderGeometry
 syntax keyword qmlObjectLiteralType CylinderMesh
 
-syntax keyword qmlObjectLiteralType Date
 syntax keyword qmlObjectLiteralType DateTimeAxis
 syntax keyword qmlObjectLiteralType DayOfWeekRow
 syntax keyword qmlObjectLiteralType DebugView
@@ -544,7 +574,6 @@ syntax keyword qmlObjectLiteralType LottieAnimation
 
 syntax keyword qmlObjectLiteralType Magnetometer
 syntax keyword qmlObjectLiteralType MagnetometerReading
-syntax keyword qmlObjectLiteralType Map
 syntax keyword qmlObjectLiteralType MapCircle
 syntax keyword qmlObjectLiteralType MapCircleObject
 syntax keyword qmlObjectLiteralType MapCopyrightNotice
@@ -612,7 +641,6 @@ syntax keyword qmlObjectLiteralType NoPicking
 syntax keyword qmlObjectLiteralType NormalDiffuseMapAlphaMaterial
 syntax keyword qmlObjectLiteralType NormalDiffuseMapMaterial
 syntax keyword qmlObjectLiteralType NormalDiffuseSpecularMapMaterial
-syntax keyword qmlObjectLiteralType Number
 syntax keyword qmlObjectLiteralType NumberAnimation
 syntax keyword qmlObjectLiteralType NumberKey
 
@@ -885,7 +913,6 @@ syntax keyword qmlObjectLiteralType StencilOperationArguments
 syntax keyword qmlObjectLiteralType StencilTest
 syntax keyword qmlObjectLiteralType StencilTestArguments
 syntax keyword qmlObjectLiteralType Store
-syntax keyword qmlObjectLiteralType String
 syntax keyword qmlObjectLiteralType SubtreeEnabler
 syntax keyword qmlObjectLiteralType Supplier
 syntax keyword qmlObjectLiteralType Surface3D
