@@ -42,7 +42,9 @@ syntax region  qmlTemplateExpr contained  matchgroup=qmlBraces start=+${+ end=+}
 syn match   qmlCharacter         "'\\.'"
 syn match   qmlNumber            "-\=\<\d\+L\=\>\|0[xX][0-9a-fA-F]\+\>"
 syn region  qmlRegexpString      start=+/[^/*]+me=e-1 skip=+\\\\\|\\/+ end=+/[gi]\{0,2\}\s*$+ end=+/[gi]\{0,2\}\s*[;.,)\]}]+me=e-1 contains=@htmlPreproc oneline
-syn match   qmlObjectLiteralType "[A-Za-z][_A-Za-z0-9]*\s*\({\)\@="
+syn match   qmlObjectDefinition  "[A-Z][_A-Za-z0-9]*\(\s*{\|\s\+on\s\+\)\@=" nextgroup=qmlPropModifierOn
+syn match   qmlPropModifierOn    "\s\+on\s\+" contained nextgroup=qmlPropModifierTarget
+syn match   qmlPropModifierTarget "[_a-z][_A-Za-z.0-9]*\s*\({\)\@=" contained
 syn region  qmlTernaryColon   start="?" end=":" contains=@qmlExpr,qmlBraces,qmlParens
 syn match   qmlBindingProperty   "\<[_a-z][_A-Za-z.0-9]*\s*:"
 syn match   qmlGroupProperty     "[_a-z][_A-Za-z0-9]*\s*\({\)\@="
@@ -134,6 +136,7 @@ syn keyword qmlJsType WeakSet
 " }}}
 
 " List extracted in alphabatical order from: https://doc.qt.io/qt-5/qmltypes.html
+" Property modifier types from: https://doc.qt.io/qt-5/qtqml-cppintegration-definetypes.html#property-modifier-types
 " Qt v5.15.1
 " NOTE: The basic and JS types previously listed are excluded from this list.
 
@@ -221,7 +224,7 @@ syntax keyword qmlObjectLiteralType BarSeries
 syntax keyword qmlObjectLiteralType BarSet
 syntax keyword qmlObjectLiteralType BaseKey
 syntax keyword qmlObjectLiteralType BasicTableView
-syntax keyword qmlObjectLiteralType Behavior
+syntax keyword qmlObjectLiteralType Behavior nextgroup=qmlPropModifierOn
 syntax keyword qmlObjectLiteralType Binding
 syntax keyword qmlObjectLiteralType Blend
 syntax keyword qmlObjectLiteralType BlendedClipAnimator
@@ -290,7 +293,7 @@ syntax keyword qmlObjectLiteralType ClipAnimator
 syntax keyword qmlObjectLiteralType ClipBlendValue
 syntax keyword qmlObjectLiteralType ClipPlane
 syntax keyword qmlObjectLiteralType CloseEvent
-syntax keyword qmlObjectLiteralType ColorAnimation
+syntax keyword qmlObjectLiteralType ColorAnimation nextgroup=qmlPropModifierOn
 syntax keyword qmlObjectLiteralType ColorDialog
 syntax keyword qmlObjectLiteralType ColorDialogRequest
 syntax keyword qmlObjectLiteralType ColorGradient
@@ -642,7 +645,7 @@ syntax keyword qmlObjectLiteralType NoPicking
 syntax keyword qmlObjectLiteralType NormalDiffuseMapAlphaMaterial
 syntax keyword qmlObjectLiteralType NormalDiffuseMapMaterial
 syntax keyword qmlObjectLiteralType NormalDiffuseSpecularMapMaterial
-syntax keyword qmlObjectLiteralType NumberAnimation
+syntax keyword qmlObjectLiteralType NumberAnimation nextgroup=qmlPropModifierOn
 syntax keyword qmlObjectLiteralType NumberKey
 
 syntax keyword qmlObjectLiteralType Object3D
@@ -751,7 +754,7 @@ syntax keyword qmlObjectLiteralType Product
 syntax keyword qmlObjectLiteralType ProgressBar
 syntax keyword qmlObjectLiteralType ProgressBarStyle
 syntax keyword qmlObjectLiteralType PropertyAction
-syntax keyword qmlObjectLiteralType PropertyAnimation
+syntax keyword qmlObjectLiteralType PropertyAnimation nextgroup=qmlPropModifierOn
 syntax keyword qmlObjectLiteralType PropertyChanges
 syntax keyword qmlObjectLiteralType ProximityFilter
 syntax keyword qmlObjectLiteralType ProximityReading
@@ -804,7 +807,7 @@ syntax keyword qmlObjectLiteralType Repeater
 syntax keyword qmlObjectLiteralType Repeater3D
 syntax keyword qmlObjectLiteralType ReviewModel
 syntax keyword qmlObjectLiteralType Rotation
-syntax keyword qmlObjectLiteralType RotationAnimation
+syntax keyword qmlObjectLiteralType RotationAnimation nextgroup=qmlPropModifierOn
 syntax keyword qmlObjectLiteralType RotationAnimator
 syntax keyword qmlObjectLiteralType RotationReading
 syntax keyword qmlObjectLiteralType RotationSensor
@@ -1022,7 +1025,7 @@ syntax keyword qmlObjectLiteralType ValueAxis3DFormatter
 syntax keyword qmlObjectLiteralType VBarModelMapper
 syntax keyword qmlObjectLiteralType VBoxPlotModelMapper
 syntax keyword qmlObjectLiteralType VCandlestickModelMapper
-syntax keyword qmlObjectLiteralType Vector3dAnimation
+syntax keyword qmlObjectLiteralType Vector3dAnimation nextgroup=qmlPropModifierOn
 syntax keyword qmlObjectLiteralType VertexBlendAnimation
 syntax keyword qmlObjectLiteralType VerticalHeaderView
 syntax keyword qmlObjectLiteralType Video
@@ -1151,7 +1154,9 @@ if version >= 508 || !exists("did_qml_syn_inits")
   HiLink qmlBasicType         Type
   HiLink qmlJsType            Type
   HiLink qmlAliasType         Type
-  HiLink qmlObjectLiteralType Type
+  HiLink qmlObjectDefinition  Type
+  HiLink qmlPropModifierOn    Function
+  HiLink qmlPropModifierTarget Label
   HiLink qmlStatement         Statement
   HiLink qmlFunction          Function
   HiLink qmlArrowFunction     Function
